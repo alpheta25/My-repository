@@ -7,8 +7,12 @@ public class Tarjeta_main {
 
 		Tarjeta tarjeta = new Tarjeta("BBVA", 487521, 828, "Raul Lozano");
 		
+		tarjeta.setActivo(false);
 		tarjeta.getInfo();
-		tarjeta.pagar(10000);
+		tarjeta.pagar(100);
+		tarjeta.pagar(900);
+		
+		
 	}
 
 }

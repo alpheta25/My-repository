@@ -8,6 +8,7 @@ public class Tarjeta {
 	private String titular;
 	
 	private int saldo = 1000;
+	private boolean activo = true;
 	
 	public Tarjeta(String entidad, int numero, int fecha, String titular) {
 		this.entidad_bancaria= entidad;
@@ -18,29 +19,37 @@ public class Tarjeta {
 		
 	}
 	
+	
+	public void Activo(boolean activo) {
+		setActivo(activo);
+	}
+	
 	public void getInfo() {
 		System.out.println("Entidad "+ getEntidad_bancaria() + ", Numero " + getNumero() + ", Fecha Caducidad " + getFecha_caducidad()
-		+ ", Titular " + getTitular() + ", Saldo " + getSaldo());
+		+ ", Titular " + getTitular() + ", Saldo " + getSaldo() + ", Tarjeta activa " + isActivo());
 
 	}
 	
 	public void pagar(int pagar) {
 		 int saldoactual = this.saldo;
 		 
-		 if (saldoactual !=0) {
-			saldoactual = saldoactual - pagar;
-			if (saldoactual <= 0) {
-				saldoactual = 0;
-				System.out.println("Saldo Actual:" + saldoactual);
-				setSaldo(saldoactual);
-			}
-			System.out.println("Nuevo Saldo: " + saldoactual);
-			setSaldo(saldoactual);
-			 pagar(pagar);
-		}else {
-			System.out.println("saldo actual 0 o inferior a 0: " + saldoactual);
+		 if (isActivo() == true) {
+			 if (saldoactual > 0 || saldoactual == 1000) {
+			 		saldoactual = saldoactual - pagar;
+				
+			 		System.out.println("Nuevo Saldo: " + saldoactual);
+			 		setSaldo(saldoactual);
+				
+			 	} else if (saldoactual <= 0) {
+			 		saldoactual = 0;
+			 		setSaldo(saldoactual);
+			 		System.out.println("Saldo insuficiente no se ha podido realizar el pago");
+			 	}
+		} else if (isActivo() == false) {
+			System.out.println("Esta tarjeta no esta activada por ello no se pudo hacer el pago");
 		}
-		
+		 	
+		 	
 		
 	}
 
@@ -92,6 +101,16 @@ public class Tarjeta {
 
 	public void setSaldo(int saldo) {
 		this.saldo = saldo;
+	}
+
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 	
 	
